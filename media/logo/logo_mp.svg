@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 27.2.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="logoMP" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 788.4 788.4" style="enable-background:new 0 0 788.4 788.4;" xml:space="preserve">
+<style type="text/css">
+	.st0{fill:#523E27;}
+</style>
+<path id="OuterCircle" class="st0" d="M394.2,0C176.5,0,0,176.5,0,394.2s176.5,394.2,394.2,394.2s394.2-176.5,394.2-394.2
+	S611.9,0,394.2,0z M394.2,767.1c-205.9,0-372.8-166.9-372.8-372.8S188.3,21.4,394.2,21.4s372.8,166.9,372.8,372.8
+	S600.1,767.1,394.2,767.1z"/>
+<g id="InnerCircle">
+	<path class="st0" d="M527.1,328.6h-82.2v112h80.5c37.3,0,62.6-14.4,62.6-58C588,341.6,561.4,328.6,527.1,328.6z"/>
+	<path class="st0" d="M394.2,42.7c-194.1,0-351.5,157.4-351.5,351.5s157.4,351.5,351.5,351.5s351.5-157.4,351.5-351.5
+		S588.4,42.7,394.2,42.7z M539.5,478l-94.6,0v143.2h-47V478V291.2V247l-96.7,134.3L204.5,247v231h-47V167.3h47L301.2,302l96.7-134.7
+		h47v123.9h94.6c57.1,0,91.4,38.7,91.4,90.9C630.9,427.1,606.4,478,539.5,478z"/>
+</g>
+</svg>
