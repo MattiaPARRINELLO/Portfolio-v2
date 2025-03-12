@@ -123,3 +123,79 @@ logoTL
 window.onbeforeunload = function () {
     window.scrollTo(0, 0);
 };
+
+
+
+
+
+
+
+
+gsap.registerPlugin(ScrollTrigger);
+
+// Animation de la section showcase
+gsap.from("#showcase", {
+    opacity: 0,
+    y: 100,
+    duration: 1,
+    ease: "power2.out",
+    scrollTrigger: {
+        trigger: "#showcase",
+        start: "top 80%", // Déclenchement lorsque 80% de la section est visible
+        toggleActions: "play none none reverse"
+    }
+});
+
+// Animation des éléments de la grille
+gsap.from(".gridElement", {
+    opacity: 0,
+    y: 50,
+    stagger: 0.2,
+    duration: 1,
+    ease: "power2.out",
+    scrollTrigger: {
+        trigger: "#showcase",
+        start: "top 75%",
+        toggleActions: "play none none reverse"
+    }
+});
+
+
+const gridElements = document.querySelectorAll(".imageElement");
+
+gridElements.forEach((element) => {
+    element.addEventListener("mouseenter", () => {
+        // Agrandir l'élément survolé
+        gsap.to(element, {
+            scale: 1.1,
+            y: -10,
+            duration: 0.3,
+            ease: "power2.out"
+        });
+
+        // Rétrécir les autres éléments
+        gsap.to(gridElements, {
+            scale: 0.9,
+            duration: 0.3,
+            ease: "power2.out",
+            overwrite: "auto"
+        });
+
+        // Garder l'élément survolé à la bonne taille
+        gsap.to(element, {
+            scale: 1.1,
+            duration: 0.3,
+            ease: "power2.out"
+        });
+    });
+
+    element.addEventListener("mouseleave", () => {
+        // Remettre tout à la taille normale
+        gsap.to(gridElements, {
+            scale: 1,
+            y: 0,
+            duration: 0.3,
+            ease: "power2.inOut"
+        });
+    });
+});

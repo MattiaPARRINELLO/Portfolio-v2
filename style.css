@@ -27,15 +27,6 @@ section#home_page_section {
 section#home_page_section svg#logoMP {
   width: 75px;
   border-radius: 50%;
-  /* position: absolute; */
-  /* top: 50px; */
-  /* left: 50%; */
-  /* transform: translateX(-50%); */
-}
-
-/* style.css */
-#logoMP {
-  opacity: 0;
 }
 
 #logoMP path {
@@ -93,4 +84,21 @@ path {
   transform: translate(-50%, -50%);
   opacity: 0;
   z-index: 1000; /* Le logo sera toujours au-dessus des autres éléments */
+}
+
+section#showcase {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-gap: 20px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--light_brown);
+}
+
+section#showcase .gridElement {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
