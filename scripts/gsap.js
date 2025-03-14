@@ -1,4 +1,3 @@
-
 // gsap.from("h1", {
 //     duration: 1.5,
 //     y: 50,
@@ -9,18 +8,25 @@
 //     delay: 0.5
 // });
 
+
+const scroll_animation_start = "top 150%";
+const scroll_animation_end = "bottom 60%";
+const scroll_animation_duration = 10
+
+// Animation des titres en fonction de la position de la souris
 let h1 = document.querySelector("h1");
 let h2 = document.querySelector("h2");
+
 document.addEventListener("mousemove", (e) => {
     const { clientX: x, clientY: y } = e;
     const { innerWidth: width, innerHeight: height } = window;
 
-    const moveX = (x / width - 0.5) * 30; // Déplacement horizontal
-    const moveY = (y / height - 0.5) * 30; // Déplacement vertical
+    const moveX = (x / width - 0.5) * 100; // Déplacement horizontal
+    const moveY = (y / height - 0.5) * 100;  // Déplacement vertical
 
     // Décomposition de la couleur #523e27 en RGB (82, 62, 39)
     const baseColor = { r: 82, g: 62, b: 39 };
-    const colorVariation = 255; // Amplitude du changement de couleur
+    const colorVariation = 50; // Amplitude du changement de couleur
 
     const newR = baseColor.r + (moveX / 30) * colorVariation;
     const newG = baseColor.g + (moveY / 30) * colorVariation;
@@ -40,11 +46,9 @@ document.addEventListener("mousemove", (e) => {
         duration: 0.5,
         ease: "power1.out"
     });
-})
+});
 
-
-
-
+// Animation des traits du bouton "En savoir plus"
 gsap.to(".path_en_savoir_plus", {
     strokeDashoffset: 0,
     duration: 1.5,
@@ -54,43 +58,42 @@ gsap.to(".path_en_savoir_plus", {
     stagger: 0.2
 });
 
-
-
 // Animation du logo
 document.addEventListener('DOMContentLoaded', () => {
+    // Réinitialisation de la position de scroll
     setTimeout(() => {
         window.scrollTo(0, 0);
     }, 50);
-})
+});
 
 const logo = document.getElementById('logoMP');
 const paths = logo.querySelectorAll('path');
-const homeSection = document.getElementById('home_page_section');
 const introText = document.querySelector('#home_page_section h1');
 const presText = document.querySelector('#home_page_section h2');
 const moreInfoText = document.querySelector('#en_savoir_plus');
 
-// Calcule les longueurs des traits
+// Calculer et appliquer la longueur des traits pour l'animation du tracé
 paths.forEach(path => {
     const length = path.getTotalLength();
     path.style.strokeDasharray = length;
     path.style.strokeDashoffset = length;
 });
 
-// Masquer le contenu sauf le logo
+// Masquer le contenu textuel du header (hors logo)
 gsap.set([introText, presText, moreInfoText], { opacity: 0 });
 
-// Faire grandir le logo pour qu'il cache tout
+// Agrandir temporairement le logo pour couvrir l'écran
 gsap.to(logo, {
-    scale: 9,  // Augmenter la taille du logo pour qu'il couvre bien l'écran
+    scale: 9,
     duration: 1,
     ease: 'power2.inOut'
 });
 
+// Timeline d'animation pour le logo et la révélation du contenu
 const logoTL = gsap.timeline();
 
 logoTL
-    .to(logo, { autoAlpha: 1 }) // Rendre le logo visible
+    .to(logo, { autoAlpha: 1 }) // Afficher le logo
     .to(paths, {
         strokeDashoffset: 0,
         duration: 3,
@@ -103,64 +106,58 @@ logoTL
         ease: 'power2.inOut'
     }, "-=1.5")
     .to(logo, {
-        scale: 1.1,  // Réduire le logo à sa taille finale (plus grand que l'état initial)
-        duration: 2,  // L'animation devient plus lente
-        ease: 'power4.inOut',  // Un easing plus doux pour une transition fluide
-        top: '7%',  // Remettre le logo à une position plus haute dans l'écran
+        scale: 1.1,         // Réduire le logo à une taille finale plus grande qu'à l'état initial
+        duration: 2,
+        ease: 'power4.inOut',
+        top: '7%',          // Repositionner le logo plus haut
         left: '50%',
-        transform: 'translate(-50%, -50%)',  // Garder le logo centré
+        transform: 'translate(-50%, -50%)'
     })
     .to([introText, presText, moreInfoText], {
-        opacity: 1,  // Révéler les éléments de texte
+        opacity: 1,
         duration: 0.5
     }, "-=1");
 
-
-
-
-
-
+// Remise à zéro du scroll au rechargement
 window.onbeforeunload = function () {
     window.scrollTo(0, 0);
 };
 
-
-
-
-
-
-
-
 gsap.registerPlugin(ScrollTrigger);
 
-// Animation de la section showcase
+// -----------------------------
+// Animations synchronisées avec le scroll (scrub: true)
+// -----------------------------
+
+// Section "Showcase"
 gsap.from("#showcase", {
     opacity: 0,
     y: 100,
-    duration: 1,
+    duration: scroll_animation_duration,
     ease: "power2.out",
     scrollTrigger: {
         trigger: "#showcase",
-        start: "top 80%", // Déclenchement lorsque 80% de la section est visible
-        toggleActions: "play none none reverse"
+        start: scroll_animation_start, // Déclenchement plus tard
+        scrub: true,     // L'animation suit le scroll
+        end: scroll_animation_end
     }
 });
 
-// Animation des éléments de la grille
 gsap.from(".gridElement", {
     opacity: 0,
     y: 50,
     stagger: 0.2,
-    duration: 1,
+    duration: scroll_animation_duration,
     ease: "power2.out",
     scrollTrigger: {
         trigger: "#showcase",
-        start: "top 75%",
-        toggleActions: "play none none reverse"
+        start: scroll_animation_start,
+        scrub: true,
+        end: scroll_animation_end
     }
 });
 
-
+// Animation de survol des images de la grille
 const gridElements = document.querySelectorAll(".imageElement");
 
 gridElements.forEach((element) => {
@@ -173,7 +170,7 @@ gridElements.forEach((element) => {
             ease: "power2.out"
         });
 
-        // Rétrécir les autres éléments
+        // Réduire les autres éléments
         gsap.to(gridElements, {
             scale: 0.9,
             duration: 0.3,
@@ -181,7 +178,7 @@ gridElements.forEach((element) => {
             overwrite: "auto"
         });
 
-        // Garder l'élément survolé à la bonne taille
+        // Maintenir la taille de l'élément survolé
         gsap.to(element, {
             scale: 1.1,
             duration: 0.3,
@@ -190,7 +187,7 @@ gridElements.forEach((element) => {
     });
 
     element.addEventListener("mouseleave", () => {
-        // Remettre tout à la taille normale
+        // Remise à l'échelle normale
         gsap.to(gridElements, {
             scale: 1,
             y: 0,
@@ -198,4 +195,59 @@ gridElements.forEach((element) => {
             ease: "power2.inOut"
         });
     });
+});
+
+// Section "À propos de moi"
+gsap.from("#about_me .text", {
+    x: -100,
+    opacity: 0,
+    duration: scroll_animation_duration,
+    ease: "power2.out",
+    scrollTrigger: {
+        trigger: "#about_me",
+        start: scroll_animation_start, // Déclenchement plus tard
+        scrub: true,    // Animation liée au défilement
+        end: scroll_animation_end
+    }
+});
+
+gsap.from("#about_me .imageContainer", {
+    x: 100,
+    opacity: 0,
+    duration: scroll_animation_duration,
+    ease: "power2.out",
+    scrollTrigger: {
+        trigger: "#about_me",
+        start: scroll_animation_start,
+        scrub: true,
+        end: scroll_animation_end
+    }
+});
+
+// Section "Mes principales passions"
+gsap.from("#passions h4", {
+    y: 50,
+    opacity: 0,
+    duration: scroll_animation_duration,
+    ease: "power2.out",
+    scrollTrigger: {
+        trigger: "#passions",
+        start: scroll_animation_start, // Déclenchement plus tard
+        scrub: true,     // Animation contrôlée par le scroll
+        end: scroll_animation_end
+    }
+});
+
+gsap.from("#passions .container .item", {
+    y: 50,
+    opacity: 0,
+    stagger: 0.2,
+    duration: scroll_animation_duration,
+    ease: "power2.out",
+    scrollTrigger: {
+        trigger: "#passions",
+        start: scroll_animation_start,
+        scrub: true,
+        end: scroll_animation_end
+    }
 });
