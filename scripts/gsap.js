@@ -9,9 +9,10 @@
 // });
 
 
-const scroll_animation_start = "top 150%";
-const scroll_animation_end = "bottom 60%";
-const scroll_animation_duration = 10
+const scroll_animation_start = "top 40%";
+const scroll_animation_end = "bottom 100%";
+const scroll_animation_duration = 1
+const scroll_animation_toggle = true
 
 // Animation des titres en fonction de la position de la souris
 let h1 = document.querySelector("h1");
@@ -130,18 +131,18 @@ gsap.registerPlugin(ScrollTrigger);
 // -----------------------------
 
 // Section "Showcase"
-gsap.from("#showcase", {
-    opacity: 0,
-    y: 100,
-    duration: scroll_animation_duration,
-    ease: "power2.out",
-    scrollTrigger: {
-        trigger: "#showcase",
-        start: scroll_animation_start, // Déclenchement plus tard
-        scrub: true,     // L'animation suit le scroll
-        end: scroll_animation_end
-    }
-});
+// gsap.from("#showcase", {
+//     opacity: 0,
+//     y: 100,
+//     duration: scroll_animation_duration,
+//     ease: "power2.out",
+//     scrollTrigger: {
+//         trigger: "#showcase",
+//         start: scroll_animation_start, // Déclenchement plus tard
+//         scrub: scroll_animation_toggle,     // L'animation suit le scroll
+//         end: scroll_animation_end
+//     }
+// });
 
 gsap.from(".gridElement", {
     opacity: 0,
@@ -152,7 +153,7 @@ gsap.from(".gridElement", {
     scrollTrigger: {
         trigger: "#showcase",
         start: scroll_animation_start,
-        scrub: true,
+        scrub: scroll_animation_toggle,
         end: scroll_animation_end
     }
 });
@@ -206,7 +207,7 @@ gsap.from("#about_me .text", {
     scrollTrigger: {
         trigger: "#about_me",
         start: scroll_animation_start, // Déclenchement plus tard
-        scrub: true,    // Animation liée au défilement
+        scrub: scroll_animation_toggle,    // Animation liée au défilement
         end: scroll_animation_end
     }
 });
@@ -219,7 +220,7 @@ gsap.from("#about_me .imageContainer", {
     scrollTrigger: {
         trigger: "#about_me",
         start: scroll_animation_start,
-        scrub: true,
+        scrub: scroll_animation_toggle,
         end: scroll_animation_end
     }
 });
@@ -233,7 +234,7 @@ gsap.from("#passions h4", {
     scrollTrigger: {
         trigger: "#passions",
         start: scroll_animation_start, // Déclenchement plus tard
-        scrub: true,     // Animation contrôlée par le scroll
+        scrub: scroll_animation_toggle,     // Animation contrôlée par le scroll
         end: scroll_animation_end
     }
 });
@@ -247,7 +248,7 @@ gsap.from("#passions .container .item", {
     scrollTrigger: {
         trigger: "#passions",
         start: scroll_animation_start,
-        scrub: true,
+        scrub: scroll_animation_toggle,
         end: scroll_animation_end
     }
 });
